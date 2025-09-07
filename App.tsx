@@ -31,18 +31,25 @@ const App: React.FC = () => {
 
   const handleSaveRecord = useCallback(async (newRecord: RecordItem) => {
     try {
-      // 変化スコアを計算
-      const scores = await Promise.all(
-        newRecord.images.before.map(async (beforeImg, index) => {
-          const afterImg = newRecord.images.after[index];
-          return await calculateChangeScore(beforeImg, afterImg);
-        })
-      );
+      let recordWithScore = newRecord;
       
-      const recordWithScore = {
-        ...newRecord,
-        changeScore: Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length)
-      };
+      // After画像がある場合のみ変化スコアを計算
+      if (newRecord.images.after.length > 0) {
+        const scores = await Promise.all(
+          newRecord.images.before.map(async (beforeImg, index) => {
+            const afterImg = newRecord.images.after[index];
+            if (afterImg) {
+              return await calculateChangeScore(beforeImg, afterImg);
+            }
+            return 0; // After画像がない場合は0
+          })
+        );
+        
+        recordWithScore = {
+          ...newRecord,
+          changeScore: Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length)
+        };
+      }
       
       const updatedRecords = [...records, recordWithScore];
       setRecords(updatedRecords);
