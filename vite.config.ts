@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(() => {
     return {
       plugins: [react()],
+      base: '/before-after-comparison-tool/',
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
