@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { LOCAL_STORAGE_KEY, MAX_STORAGE_SIZE } from '../constants';
+import { useState } from 'react';
+import { MAX_STORAGE_SIZE } from '../constants';
 
 /**
  * ローカルストレージと同期するReactフック

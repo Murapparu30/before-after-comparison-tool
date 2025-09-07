@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RecordItem } from '../types';
 import { exportData, importData } from '../services/dataService';
 import { saveToFile, loadFromFile, isFileSystemAccessSupported, setupAutoSave } from '../services/fileService';
