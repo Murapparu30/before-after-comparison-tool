@@ -1,0 +1,5 @@
+{
+  "name": "Before/After Comparison Tool",
+  "description": "A web application to record, view, and compare sets of 'before' and 'after' images. All data is stored locally in your browser.",
+  "requestFramePermissions": []
+}
