@@ -51,9 +51,13 @@ export const RecordForm: React.FC<RecordFormProps> = ({ onSave, onCancel }) => {
       return;
     }
     
-    if (beforeFiles.length < MIN_IMAGE_COUNT || beforeFiles.length > MAX_IMAGE_COUNT ||
-        afterFiles.length < MIN_IMAGE_COUNT || afterFiles.length > MAX_IMAGE_COUNT) {
-      setError(`Before/After画像をそれぞれ${MIN_IMAGE_COUNT}〜${MAX_IMAGE_COUNT}枚選択してください`);
+    if (beforeFiles.length < MIN_IMAGE_COUNT || beforeFiles.length > MAX_IMAGE_COUNT) {
+      setError(`Before画像を${MIN_IMAGE_COUNT}〜${MAX_IMAGE_COUNT}枚選択してください`);
+      return;
+    }
+    
+    if (afterFiles.length > MAX_IMAGE_COUNT) {
+      setError(`After画像は最大${MAX_IMAGE_COUNT}枚まで選択できます`);
       return;
     }
     
@@ -64,9 +68,9 @@ export const RecordForm: React.FC<RecordFormProps> = ({ onSave, onCancel }) => {
       const beforeImages = await Promise.all(
         beforeFiles.map(file => processImage(file))
       );
-      const afterImages = await Promise.all(
+      const afterImages = afterFiles.length > 0 ? await Promise.all(
         afterFiles.map(file => processImage(file))
-      );
+      ) : [];
       
       const now = Date.now();
       const newRecord = {
@@ -116,7 +120,7 @@ export const RecordForm: React.FC<RecordFormProps> = ({ onSave, onCancel }) => {
       
       <ImageInput
         id="after-images"
-        label={`After画像 (${MIN_IMAGE_COUNT}〜${MAX_IMAGE_COUNT}枚)`}
+        label={`After画像 (任意、最大${MAX_IMAGE_COUNT}枚)`}
         onFilesSelect={handleAfterFilesSelect}
         files={afterPreviews}
       />

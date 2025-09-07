@@ -28,7 +28,7 @@ export enum SortOrder {
  */
 export interface ImageComparerProps {
   beforeImage: string;
-  afterImage: string;
+  afterImage?: string | null;
 }
 
 /**

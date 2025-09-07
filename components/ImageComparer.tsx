@@ -2,6 +2,44 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ImageComparerProps } from '../types';
 
 export const ImageComparer: React.FC<ImageComparerProps> = ({ beforeImage, afterImage }) => {
+  // After画像がない場合はBefore画像のみを表示
+  if (!afterImage) {
+    return (
+      <div 
+        className="image-comparer"
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '400px',
+          overflow: 'hidden'
+        }}
+      >
+        <img
+          src={beforeImage}
+          alt="Before"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain'
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            top: '10px',
+            left: '10px',
+            backgroundColor: 'rgba(0,0,0,0.7)',
+            color: 'white',
+            padding: '5px 10px',
+            borderRadius: '3px',
+            fontSize: '12px'
+          }}
+        >
+          BEFORE
+        </div>
+      </div>
+    );
+  }
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -172,21 +210,23 @@ export const ImageComparer: React.FC<ImageComparerProps> = ({ beforeImage, after
         BEFORE
       </div>
       
-      <div
-        style={{
-          position: 'absolute',
-          top: '10px',
-          right: '10px',
-          backgroundColor: 'rgba(0,0,0,0.7)',
-          color: 'white',
-          padding: '5px 10px',
-          borderRadius: '3px',
-          fontSize: '12px',
-          pointerEvents: 'none'
-        }}
-      >
-        AFTER
-      </div>
+      {afterImage && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            backgroundColor: 'rgba(0,0,0,0.7)',
+            color: 'white',
+            padding: '5px 10px',
+            borderRadius: '3px',
+            fontSize: '12px',
+            pointerEvents: 'none'
+          }}
+        >
+          AFTER
+        </div>
+      )}
     </div>
   );
 };

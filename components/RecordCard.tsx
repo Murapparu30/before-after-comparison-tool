@@ -24,13 +24,15 @@ const RecordCard: React.FC<RecordCardProps> = ({ record, onView, onDelete }) => 
           <img 
             src={record.images.before[0]} 
             alt="Before" 
-            className="w-1/2 h-24 object-cover rounded-md" 
+            className={`${record.images.after.length > 0 ? 'w-1/2' : 'w-full'} h-24 object-cover rounded-md`} 
           />
-          <img 
-            src={record.images.after[0]} 
-            alt="After" 
-            className="w-1/2 h-24 object-cover rounded-md" 
-          />
+          {record.images.after.length > 0 && (
+            <img 
+              src={record.images.after[0]} 
+              alt="After" 
+              className="w-1/2 h-24 object-cover rounded-md" 
+            />
+          )}
         </div>
       </div>
       <div className="p-4 bg-gray-100 flex gap-2">

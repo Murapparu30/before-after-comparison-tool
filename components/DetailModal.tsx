@@ -107,7 +107,10 @@ export const DetailModal: React.FC<DetailModalProps> = ({ record, onClose, onUpd
             {record.images.before.map((beforeImg, index) => (
               <div key={index} className="space-y-4">
                 <h3 className="text-lg font-semibold text-center">画像 {index + 1}</h3>
-                <ImageComparer beforeImage={beforeImg} afterImage={record.images.after[index]} />
+                <ImageComparer 
+                  beforeImage={beforeImg} 
+                  afterImage={record.images.after[index] || null} 
+                />
               </div>
             ))}
           </div>
